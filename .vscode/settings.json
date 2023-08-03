@@ -1,0 +1,14 @@
+{
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript"
+    ],
+    "cSpell.ignoreWords": [
+      "taskpane",
+      "autoopen",
+      "sideload",
+      "Contoso",
+    ],
+  }
+  
