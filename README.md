@@ -12,7 +12,7 @@ Steps to reproduce:
 4. Modify the `manifest.xml` file with the following change `<TaskpaneId>Office.AutoShowTaskpaneWithDocument</TaskpaneId>`.
 5. Using a Microsoft 365 trial developer subscription account, log in as the Administrator and upload the `manifest.xml` as
    a new `Integrated App`.
-6. Start Word, create a new document and insert the `Admin Managed` Add-in.
+6. Start Word, login with a user account from the Microsoft 365 trial developer subscription, create a new document and insert the `Admin Managed` Add-in.
 7. Show the task pane using the button on the ribbon bar.
 8. Set the check box that was added to the yeoman generated code.
 9. Using the `File` menu, save the the document as a template, i.e. `.dotx`, file.
@@ -30,7 +30,9 @@ Expected appearance:
 
 Word version: 16.75 (23070901)
 
-Confirmed that the `.dotx` file contains the `webextensions` folder and appropriate `taskpanes.xml` and `webextensions1.xml1 files.
+Confirmed that the `.dotx` file contains the `webextensions` folder and appropriate `taskpanes.xml` and `webextensions1.xml` files.
 
 [Source code] (https://github.com/asparrowhawk/yo-office-addin)
+
+This source code and reproduction steps work as expected with Word for Windows version 2016 MSO (Version 2307 Build 16.0.16626.20110) 32-bit 
 
