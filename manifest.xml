@@ -14,6 +14,8 @@
   </AppDomains>
   <Hosts>
     <Host Name="Document"/>
+    <Host Name="Workbook" />
+    <Host Name="Presentation" />
   </Hosts>
   <DefaultSettings>
     <SourceLocation DefaultValue="https://localhost:3000/taskpane.html"/>
@@ -52,6 +54,133 @@
                   <Action xsi:type="ShowTaskpane">
                     <TaskpaneId>Office.AutoShowTaskpaneWithDocument</TaskpaneId>
                     <SourceLocation resid="Taskpane.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+      <Host xsi:type="Workbook">
+        <!-- Form factor. Currently only DesktopFormFactor is supported. -->
+        <DesktopFormFactor>
+          <!--"This code enables a customizable message to be displayed when the add-in is loaded successfully upon individual install."-->
+          <GetStarted>
+            <!-- Title of the Getting Started callout. resid points to a ShortString resource -->
+            <Title resid="GetStarted.Title"/>
+
+            <!-- Description of the Getting Started callout. resid points to a LongString resource -->
+            <Description resid="GetStarted.Description"/>
+
+            <!-- Point to a url resource which details how the add-in should be used. -->
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
+          </GetStarted>
+          <!-- Function file is a HTML page that includes the JavaScript where functions for ExecuteAction will be called.
+            Think of the FunctionFile as the code behind ExecuteFunction. -->
+          <FunctionFile resid="Commands.Url" />
+
+          <!-- PrimaryCommandSurface is the main Office Ribbon. -->
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <!-- Use OfficeTab to extend an existing Tab. Use CustomTab to create a new tab. -->
+            <OfficeTab id="TabHome">
+              <!-- Ensure you provide a unique id for the group. Recommendation for any IDs is to namespace using your company name. -->
+              <Group id="CommandsGroup">
+                <!-- Label for your group. resid must point to a ShortString resource. -->
+                <Label resid="CommandsGroup.Label" />
+                <!-- Icons. Required sizes 16,32,80, optional 20, 24, 40, 48, 64. Strongly recommended to provide all sizes for great UX. -->
+                <!-- Use PNG icons. All URLs on the resources section must use HTTPS. -->
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16x16"/>
+                  <bt:Image size="32" resid="Icon.32x32"/>
+                  <bt:Image size="80" resid="Icon.80x80"/>
+                </Icon>
+
+                <!-- Control. It can be of type "Button" or "Menu". -->
+                <Control xsi:type="Button" id="TaskpaneButton">
+                  <Label resid="TaskpaneButton.Label" />
+                  <Supertip>
+                    <!-- ToolTip title. resid must point to a ShortString resource. -->
+                    <Title resid="TaskpaneButton.Label" />
+                    <!-- ToolTip description. resid must point to a LongString resource. -->
+                    <Description resid="TaskpaneButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                  <bt:Image size="16" resid="Icon.16x16"/>
+                  <bt:Image size="32" resid="Icon.32x32"/>
+                  <bt:Image size="80" resid="Icon.80x80"/>
+                  </Icon>
+
+                  <!-- This is what happens when the command is triggered (E.g. click on the Ribbon). Supported actions are ExecuteFunction or ShowTaskpane. -->
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>Office.AutoShowTaskpaneWithDocument</TaskpaneId>
+                    <!-- Provide a url resource id for the location that will be displayed on the task pane. -->
+                    <SourceLocation resid="Taskpane.Url" />
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+      <Host xsi:type="Presentation">
+        <Runtimes xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides">
+          <Runtime resid="Taskpane.Url" lifetime="long" />
+        </Runtimes>
+        <!-- Form factor. Currently only DesktopFormFactor is supported. -->
+        <DesktopFormFactor>
+          <!--"This code enables a customizable message to be displayed when the add-in is loaded successfully upon individual install."-->
+          <GetStarted>
+            <!-- Title of the Getting Started callout. resid points to a ShortString resource -->
+            <Title resid="GetStarted.Title"/>
+
+            <!-- Description of the Getting Started callout. resid points to a LongString resource -->
+            <Description resid="GetStarted.Description"/>
+
+            <!-- Point to a url resource which details how the add-in should be used. -->
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
+          </GetStarted>
+          <!-- Function file is a HTML page that includes the JavaScript where functions for ExecuteAction will be called.
+            Think of the FunctionFile as the code behind ExecuteFunction. -->
+          <FunctionFile resid="Commands.Url" />
+
+          <!-- PrimaryCommandSurface is the main Office Ribbon. -->
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <!-- Use OfficeTab to extend an existing Tab. Use CustomTab to create a new tab. -->
+            <OfficeTab id="TabHome">
+              <!-- Ensure you provide a unique id for the group. Recommendation for any IDs is to namespace using your company name. -->
+              <Group id="CommandsGroup">
+                <!-- Label for your group. resid must point to a ShortString resource. -->
+                <Label resid="CommandsGroup.Label" />
+                <!-- Icons. Required sizes 16,32,80, optional 20, 24, 40, 48, 64. Strongly recommended to provide all sizes for great UX. -->
+                <!-- Use PNG icons. All URLs on the resources section must use HTTPS. -->
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16x16" />
+                  <bt:Image size="32" resid="Icon.32x32" />
+                  <bt:Image size="64" resid="Icon.64x64" />
+                  <bt:Image size="80" resid="Icon.80x80" />
+                </Icon>
+
+                <!-- Control. It can be of type "Button" or "Menu". -->
+                <Control xsi:type="Button" id="TaskpaneButton">
+                  <Label resid="TaskpaneButton.Label" />
+                  <Supertip>
+                    <!-- ToolTip title. resid must point to a ShortString resource. -->
+                    <Title resid="TaskpaneButton.Label" />
+                    <!-- ToolTip description. resid must point to a LongString resource. -->
+                    <Description resid="TaskpaneButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16" />
+                    <bt:Image size="32" resid="Icon.32x32" />
+                    <bt:Image size="64" resid="Icon.64x64" />
+                    <bt:Image size="80" resid="Icon.80x80" />
+                  </Icon>
+
+                  <!-- This is what happens when the command is triggered (E.g. click on the Ribbon). Supported actions are ExecuteFunction or ShowTaskpane. -->
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>Office.AutoShowTaskpaneWithDocument</TaskpaneId>
+                    <!-- Provide a url resource id for the location that will be displayed on the task pane. -->
+                    <SourceLocation resid="Taskpane.Url" />
                   </Action>
                 </Control>
               </Group>

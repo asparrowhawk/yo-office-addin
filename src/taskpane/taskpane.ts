@@ -6,20 +6,30 @@
 /* global document, Office, Word */
 
 function getAutoShowElement() {
-  return document.getElementById("autoshow") as HTMLInputElement
+  return document.getElementById("autoshow") as HTMLInputElement;
 }
 
 Office.onReady((info) => {
-  if (info.host === Office.HostType.Word) {
+  if (
+    info.host === Office.HostType.Word ||
+    info.host === Office.HostType.Excel ||
+    info.host === Office.HostType.PowerPoint
+  ) {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
-    document.getElementById("run").onclick = run;
+    if (info.host === Office.HostType.Word) {
+      document.getElementById("run").onclick = run;
+    }
+    else {
+      document.getElementById("run").style.display = "none";
+      document.getElementById("instructions").style.display = "none";
+    }
 
     const autoShowElement = getAutoShowElement();
     autoShowElement.onclick = setAutoShow;
     getAutoShow().then(function (state) {
       autoShowElement.checked = state;
-    })
+    });
   }
 });
 
@@ -27,12 +37,12 @@ export async function getAutoShow() {
   return new Promise<boolean>((resolve) => {
     const getAutoShowTaskpaneWithDocument = (context: Office.Context) => {
       const value = context.document.settings.get("Office.AutoShowTaskpaneWithDocument");
-      const state = (typeof value === "boolean") ? (value as boolean) : false;
+      const state = typeof value === "boolean" ? (value as boolean) : false;
       console.log(`auto show is: ${state}`);
       resolve(state);
-    }
+    };
     getAutoShowTaskpaneWithDocument(Office.context);
-  })
+  });
 }
 
 export async function setAutoShow() {
@@ -43,10 +53,10 @@ export async function setAutoShow() {
       context.document.settings.saveAsync(function () {
         console.log(`set auto show to: ${value}`);
         resolve();
-      })
-    }
+      });
+    };
     setAutoShowTaskpaneWithDocument(Office.context);
-  })
+  });
 }
 
 export async function run() {
